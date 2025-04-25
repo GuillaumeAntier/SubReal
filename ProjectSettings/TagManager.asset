@@ -11,9 +11,9 @@ TagManager:
   - Grabbable
   - Water
   - UI
+  - Interactable
   - 
   - whatIsWall
-  - 
   - whatIsGround
   - 
   - 
