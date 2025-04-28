@@ -12,10 +12,12 @@ public class ObjectGrab : MonoBehaviour
     public LayerMask grabbableLayer;
     public KeyCode grabKey = KeyCode.E;
     public KeyCode throwKey = KeyCode.F;
+    public LayerMask playerLayer;
 
     private GameObject heldObject;
     private Rigidbody heldRigidbody;
     private bool isHolding = false;
+    private int originalLayer;
 
     void Start()
     {
@@ -64,6 +66,10 @@ public class ObjectGrab : MonoBehaviour
             {
                 heldObject = hit.collider.gameObject;
                 heldRigidbody = rb;
+
+                originalLayer = heldObject.layer;
+
+                heldObject.layer = LayerMask.NameToLayer("Carried"); 
                 
                 heldRigidbody.useGravity = false;
                 heldRigidbody.linearDamping = 10;
@@ -83,7 +89,8 @@ public class ObjectGrab : MonoBehaviour
     void DropObject()
     {
         if (heldObject != null)
-        {
+        {   
+            heldObject.layer = originalLayer;
             heldRigidbody.useGravity = true;
             heldRigidbody.linearDamping = 1;
             heldRigidbody.angularDamping = 0.05f;
@@ -100,6 +107,8 @@ public class ObjectGrab : MonoBehaviour
     {
         if (heldObject != null)
         {
+
+            heldObject.layer = originalLayer;
             heldRigidbody.useGravity = true;
             heldRigidbody.linearDamping = 1;
             heldRigidbody.angularDamping = 0.05f;
@@ -110,5 +119,10 @@ public class ObjectGrab : MonoBehaviour
             heldRigidbody = null;
             isHolding = false;
         }
+    }
+
+    public GameObject GetHeldObject()
+    {
+        return heldObject;
     }
 }
