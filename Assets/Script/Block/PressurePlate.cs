@@ -1,15 +1,18 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PressurePlate : MonoBehaviour
 {
-    public float pressAmount = 0.05f;   
-    public float pressSpeed = 5f;        
+    public float pressAmount = 0.05f;
+    public float pressSpeed = 5f;
     public Door door;
+    public string plateColorName = "Bleu";
+    public bool requireColorMatch = true;
 
     private Vector3 startPos;
-    private Vector3 targetPos; 
-
+    private Vector3 targetPos;
     private bool isPressed = false;
+    private List<GameObject> validObjectsOnPlate = new List<GameObject>();
 
     void Start()
     {
@@ -33,19 +36,50 @@ public class PressurePlate : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player") || collision.rigidbody)
+        GameObject collidingObject = collision.gameObject;
+        
+        if (validObjectsOnPlate.Contains(collidingObject))
+            return;
+
+        bool isValid = false;
+
+        if (!requireColorMatch)
         {
+            if (collidingObject.CompareTag("Player") || collision.rigidbody)
+            {
+                isValid = true;
+            }
+        }
+        else
+        {
+            ColorIdentifier colorId = collidingObject.GetComponent<ColorIdentifier>();
+            if (colorId != null && colorId.colorName == plateColorName)
+            {
+                isValid = true;
+            }
+        }
+
+        if (isValid)
+        {
+            validObjectsOnPlate.Add(collidingObject);
             isPressed = true;
-            door.OpenDoor(); 
+            door.OpenDoor();
         }
     }
 
     void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player") || collision.rigidbody)
+        GameObject collidingObject = collision.gameObject;
+        
+        if (validObjectsOnPlate.Contains(collidingObject))
         {
-            isPressed = false;
-            door.CloseDoor();
+            validObjectsOnPlate.Remove(collidingObject);
+            
+            if (validObjectsOnPlate.Count == 0)
+            {
+                isPressed = false;
+                door.CloseDoor();
+            }
         }
     }
 }

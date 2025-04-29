@@ -86,7 +86,7 @@ public class Teleporter : MonoBehaviour
                 {
                     carriedObject.transform.position = targetPosition + new Vector3(0, 1f, 0); 
                 }
-            }
+            }   
         }
         else
         {
