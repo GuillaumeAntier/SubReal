@@ -13,6 +13,8 @@ public class MirrorRotationUI : MonoBehaviour
     public TextMeshProUGUI controlsText;
     public Image controlsBackground;
     public bool showOnlyWhenHoldingMirror = true;
+    [Tooltip("Position de l'UI sur l'écran (0,0 = bas gauche, 1,1 = haut droit)")]
+    public Vector2 screenPosition = new Vector2(0.5f, 0.5f);
     
     [Header("Visual Settings")]
     public Color textColor = new Color(0.9f, 0.9f, 0.9f);
@@ -21,6 +23,7 @@ public class MirrorRotationUI : MonoBehaviour
     
     private GameObject uiElement;
     private bool isInitialized = false;
+    private RectTransform rectTransform;
     
     void Start()
     {
@@ -40,9 +43,9 @@ public class MirrorRotationUI : MonoBehaviour
     
     void Update()
     {
-        if (!isInitialized) return;
+        if (!isInitialized || uiElement == null) return;
         
-        if (showOnlyWhenHoldingMirror && uiElement != null)
+        if (showOnlyWhenHoldingMirror)
         {
             GameObject heldObject = objectGrabSystem.GetHeldObject();
             bool holdingMirror = (heldObject != null && heldObject.GetComponent<LaserMirror>() != null);
@@ -62,7 +65,7 @@ public class MirrorRotationUI : MonoBehaviour
         
         if (canvas == null)
         {
-            canvas = FindObjectOfType<Canvas>();
+            canvas = FindFirstObjectByType<Canvas>();
             
             if (canvas == null)
             {
@@ -76,10 +79,11 @@ public class MirrorRotationUI : MonoBehaviour
         
         uiElement = new GameObject("MirrorControlsUI");
         uiElement.transform.SetParent(canvas.transform, false);
-        RectTransform rectTransform = uiElement.AddComponent<RectTransform>();
+        rectTransform = uiElement.AddComponent<RectTransform>();
         
-        rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
-        rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+        // Positionnement basé sur screenPosition
+        rectTransform.anchorMin = screenPosition;
+        rectTransform.anchorMax = screenPosition;
         rectTransform.pivot = new Vector2(0.5f, 0.5f);
         rectTransform.anchoredPosition = Vector2.zero;
         
@@ -98,11 +102,20 @@ public class MirrorRotationUI : MonoBehaviour
         GameObject textObj = new GameObject("ControlsText");
         textObj.transform.SetParent(uiElement.transform, false);
         controlsText = textObj.AddComponent<TextMeshProUGUI>();
-        controlsText.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF"); 
+        
+        // Tentative de chargement de la police avec gestion d'erreur
+        TMP_FontAsset fontAsset = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
+        if (fontAsset == null)
+        {
+            Debug.LogWarning("Police LiberationSans SDF non trouvée. Utilisation de la police par défaut.");
+            fontAsset = TMP_Settings.defaultFontAsset;
+        }
+        controlsText.font = fontAsset;
+        
         controlsText.fontSize = 16;
         controlsText.color = textColor;
         controlsText.alignment = TextAlignmentOptions.Center; 
-        controlsText.enableWordWrapping = false;
+        controlsText.textWrappingMode = TextWrappingModes.NoWrap;
         
         RectTransform textRect = controlsText.GetComponent<RectTransform>();
         textRect.anchorMin = new Vector2(0, 0);
@@ -120,13 +133,10 @@ public class MirrorRotationUI : MonoBehaviour
     
     void UpdateControls()
     {
-        if (controlsText == null) return;
+        if (controlsText == null || mirrorRotationSystem == null) return;
         
         string controlsString = "<b>ROTATION DU MIROIR</b>\n\n";
-        controlsString += $"<color=#f8e473>Gauche:</color> {GetKeyName(mirrorRotationSystem.rotateLeftKey)}\n";
-        controlsString += $"<color=#f8e473>Droite:</color> {GetKeyName(mirrorRotationSystem.rotateRightKey)}\n";
-        controlsString += $"<color=#f8e473>Haut:</color> {GetKeyName(mirrorRotationSystem.rotateUpKey)}\n";
-        controlsString += $"<color=#f8e473>Bas:</color> {GetKeyName(mirrorRotationSystem.rotateDownKey)}";
+        controlsString += $"<color=#f8e473>Maintenir {GetKeyName(mirrorRotationSystem.mouseRotationKey)} + Mouvement souris</color>";
         
         controlsText.text = controlsString;
         
@@ -136,12 +146,11 @@ public class MirrorRotationUI : MonoBehaviour
     
     void AdjustSize()
     {
-        if (controlsText == null) return;
+        if (controlsText == null || rectTransform == null) return;
         
         controlsText.ForceMeshUpdate();
         Vector2 textSize = controlsText.GetRenderedValues(false);
         
-        RectTransform rectTransform = uiElement.GetComponent<RectTransform>();
         rectTransform.sizeDelta = new Vector2(
             textSize.x + backgroundPadding.x * 2,
             textSize.y + backgroundPadding.y * 2
@@ -150,19 +159,17 @@ public class MirrorRotationUI : MonoBehaviour
     
     string GetKeyName(KeyCode key)
     {
-        return $"<color=#ffffff><b>{key.ToString()}</b></color>";
+        return $"<color=#ffffff><b>{key}</b></color>";
     }
     
-    public void UpdateKeys(KeyCode left, KeyCode right, KeyCode up, KeyCode down)
+    public void SetPosition(Vector2 newPosition)
     {
-        if (mirrorRotationSystem != null)
-        {
-            mirrorRotationSystem.rotateLeftKey = left;
-            mirrorRotationSystem.rotateRightKey = right;
-            mirrorRotationSystem.rotateUpKey = up;
-            mirrorRotationSystem.rotateDownKey = down;
-        }
+        screenPosition = newPosition;
         
-        UpdateControls();
+        if (rectTransform != null)
+        {
+            rectTransform.anchorMin = screenPosition;
+            rectTransform.anchorMax = screenPosition;
+        }
     }
 }

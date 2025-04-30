@@ -14,7 +14,6 @@ public class PlayerInteraction : MonoBehaviour
     public TextMeshProUGUI interactionText;
 
     private Camera playerCamera;
-    private bool canInteract = false;
     private GameObject currentInteractable;
 
     void Start()
@@ -28,6 +27,11 @@ public class PlayerInteraction : MonoBehaviour
     void Update()
     {
         CheckForInteractable();
+        
+        if (currentInteractable != null && Input.GetKeyDown(interactKey))
+        {
+            InteractWithObject(currentInteractable);
+        }
     }
 
     void CheckForInteractable()
@@ -37,7 +41,6 @@ public class PlayerInteraction : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, interactionDistance, interactableLayer))
         {
-            canInteract = true;
             currentInteractable = hit.collider.gameObject;
             
             if (crosshair != null)
@@ -51,7 +54,6 @@ public class PlayerInteraction : MonoBehaviour
         }
         else
         {
-            canInteract = false;
             currentInteractable = null;
             
             if (crosshair != null)
@@ -60,5 +62,16 @@ public class PlayerInteraction : MonoBehaviour
             if (interactionText != null)
                 interactionText.gameObject.SetActive(false);
         }
+    }
+    
+    void InteractWithObject(GameObject interactable)
+    {
+        // Implémentez ici la logique d'interaction avec l'objet
+        Debug.Log($"Interacting with {interactable.name}");
+        
+        // Exemple: vous pourriez appeler une méthode sur un composant de l'objet
+        // IInteractable interactableComponent = interactable.GetComponent<IInteractable>();
+        // if (interactableComponent != null)
+        //     interactableComponent.Interact();
     }
 }

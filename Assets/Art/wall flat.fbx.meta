@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9548c5c65a7e2e84f99cb2daeaac538b
+guid: c3daeb3f65b8c0b4ca18081c280b5e9d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,13 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: _0048_PaleGoldenrod
-    second: {fileID: 2100000, guid: f8d1448dc53f16043a3c110d108a0297, type: 2}
+      name: _0048_PaleGoldenrod.002
+    second: {fileID: 2100000, guid: ecbf49b0ecd7512498399f0f5eae69dd, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: _0125_Plum
-    second: {fileID: 2100000, guid: 5c064fe4b9e54ea4084a4048a0218d76, type: 2}
+      name: _0125_Plum.002
+    second: {fileID: 2100000, guid: 984e0dc240ce7374f9b84b69c2ce2e16, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
