@@ -169,6 +169,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isReflective: 1
   reflectiveMaterial: {fileID: 2100000, guid: 19b399cf015e8134db8b272433543255, type: 2}
+  visualizeReflection: 0
+  debugLineLength: 2
+  debugColor: {r: 0, g: 1, b: 1, a: 1}
 --- !u!54 &6717937
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -935,6 +938,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isReflective: 1
   reflectiveMaterial: {fileID: 2100000, guid: 19b399cf015e8134db8b272433543255, type: 2}
+  visualizeReflection: 0
+  debugLineLength: 2
+  debugColor: {r: 0, g: 1, b: 1, a: 1}
 --- !u!54 &101857097
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3132,6 +3138,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isReflective: 1
   reflectiveMaterial: {fileID: 2100000, guid: 19b399cf015e8134db8b272433543255, type: 2}
+  visualizeReflection: 0
+  debugLineLength: 2
+  debugColor: {r: 0, g: 1, b: 1, a: 1}
 --- !u!54 &396482163
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7600,6 +7609,8 @@ GameObject:
   - component: {fileID: 1421250304}
   - component: {fileID: 1421250305}
   - component: {fileID: 1421250306}
+  - component: {fileID: 1421250307}
+  - component: {fileID: 1421250308}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -7718,6 +7729,45 @@ MonoBehaviour:
   interactKey: 101
   crosshair: {fileID: 0}
   interactionText: {fileID: 92804393}
+--- !u!114 &1421250307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421250301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7209b20a6562b748956fe7f50bccc16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateLeftKey: 103
+  rotateRightKey: 106
+  rotateUpKey: 121
+  rotateDownKey: 104
+  rotationSpeed: 45
+  objectGrabSystem: {fileID: 0}
+--- !u!114 &1421250308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421250301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1973ba3ff03a8964ab5109463cfd15e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectGrabSystem: {fileID: 1421250305}
+  mirrorRotationSystem: {fileID: 1421250307}
+  uiCanvas: {fileID: 0}
+  controlsText: {fileID: 0}
+  controlsBackground: {fileID: 0}
+  showOnlyWhenHoldingMirror: 1
+  textColor: {r: 1, g: 1, b: 1, a: 1}
+  backgroundColor: {r: 0, g: 0, b: 0, a: 0.6}
+  backgroundPadding: {x: 15, y: 10}
 --- !u!1 &1434675380
 GameObject:
   m_ObjectHideFlags: 0
