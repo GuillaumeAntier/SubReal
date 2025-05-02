@@ -3,17 +3,7 @@ guid: b9a0867981967794b8536f32bd09b007
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: _0048_PaleGoldenrod.004
-    second: {fileID: 2100000, guid: ecbf49b0ecd7512498399f0f5eae69dd, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: _0125_Plum.004
-    second: {fileID: 2100000, guid: 984e0dc240ce7374f9b84b69c2ce2e16, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

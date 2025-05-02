@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public float openDistance = 3f;      
-    public float openSpeed = 3f;        
+    public float openDistance = 2.4f;      
+    public float openSpeed = 2f;        
     private Vector3 closedPos;           
     private Vector3 openPos;             
 
