@@ -4,8 +4,8 @@ using UnityEngine.Events;
 public class LaserDetector : MonoBehaviour
 {
     [Header("Detector Settings")]
-    public Color activeColor = Color.green;    
-    public Color inactiveColor = Color.red;   
+    public Material activeMaterial;    
+    public Material inactiveMaterial;   
     
     [Header("Events")]
     public UnityEvent onLaserHit;              
@@ -19,9 +19,9 @@ public class LaserDetector : MonoBehaviour
     void Start()
     {
         rend = GetComponent<Renderer>();
-        if (rend != null)
+        if (rend != null && inactiveMaterial != null)
         {
-            rend.material.color = inactiveColor;
+            rend.material = inactiveMaterial;
         }
     }
 
@@ -43,9 +43,9 @@ public class LaserDetector : MonoBehaviour
     {
         if (!isHit)
         {
-            if (rend != null)
+            if (rend != null && inactiveMaterial != null)
             {
-                rend.material.color = inactiveColor;
+                rend.material = inactiveMaterial;
             }
             onLaserExit.Invoke();
         }
@@ -56,9 +56,9 @@ public class LaserDetector : MonoBehaviour
         if (!isHit)
         {
             isHit = true;
-            if (rend != null)
+            if (rend != null && activeMaterial != null)
             {
-                rend.material.color = activeColor;
+                rend.material = activeMaterial;
             }
             onLaserHit.Invoke();
         }
