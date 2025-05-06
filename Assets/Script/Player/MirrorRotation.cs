@@ -4,11 +4,11 @@ public class MirrorRotation : MonoBehaviour
 {
     [Header("Mouse Rotation")]
     public bool useMouseRotation = true;
-    public KeyCode mouseRotationKey = KeyCode.Mouse0; // Bouton gauche de la souris
+    public KeyCode mouseRotationKey = KeyCode.Mouse0; 
     public float mouseSensitivity = 2.0f;
     
     [Header("Camera Control")]
-    public PlayerCam playerCamScript; // Référence au script qui contrôle la caméra
+    public PlayerCam playerCamScript; 
     
     [Header("References")]
     public ObjectGrab objectGrabSystem;
@@ -16,6 +16,7 @@ public class MirrorRotation : MonoBehaviour
     private Transform lastRotatedMirror;
     private bool isRotatingWithMouse = false;
     private Vector3 originalCameraRotation;
+    private Camera mainCamera; 
     
     void Start()
     {
@@ -43,6 +44,12 @@ public class MirrorRotation : MonoBehaviour
                 playerCamScript = FindFirstObjectByType<PlayerCam>();
             }
         }
+        
+        mainCamera = Camera.main;
+        if (mainCamera == null)
+        {
+            Debug.LogWarning("Caméra principale non trouvée. Certaines fonctionnalités pourraient ne pas fonctionner correctement.");
+        }
     }
     
     void Update()
@@ -53,12 +60,10 @@ public class MirrorRotation : MonoBehaviour
         {
             lastRotatedMirror = heldObject.transform;
             
-            // Vérifier si le bouton de la souris est enfoncé
             if (Input.GetKeyDown(mouseRotationKey))
             {
                 isRotatingWithMouse = true;
                 
-                // Désactiver le contrôle de la caméra
                 if (playerCamScript != null)
                 {
                     originalCameraRotation = playerCamScript.transform.eulerAngles;
@@ -66,19 +71,16 @@ public class MirrorRotation : MonoBehaviour
                 }
             }
             
-            // Vérifier si le bouton de la souris est relâché
             if (Input.GetKeyUp(mouseRotationKey))
             {
                 isRotatingWithMouse = false;
                 
-                // Réactiver le contrôle de la caméra
                 if (playerCamScript != null)
                 {
                     playerCamScript.enabled = true;
                 }
             }
             
-            // Rotation du miroir si le bouton de la souris est enfoncé
             if (isRotatingWithMouse)
             {
                 RotateMirrorWithMouse(heldObject.transform);
@@ -88,7 +90,6 @@ public class MirrorRotation : MonoBehaviour
         {
             isRotatingWithMouse = false;
             
-            // S'assurer que le contrôle de la caméra est activé
             if (playerCamScript != null && !playerCamScript.enabled)
             {
                 playerCamScript.enabled = true;
@@ -101,14 +102,30 @@ public class MirrorRotation : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
         
-        if (mouseX != 0f)
+        if (mainCamera != null)
         {
-            mirrorTransform.Rotate(Vector3.up, -mouseX);
+            if (mouseX != 0f)
+            {
+                mirrorTransform.Rotate(Vector3.up, -mouseX, Space.World);
+            }
+            
+            if (mouseY != 0f)
+            {
+                Vector3 cameraRight = mainCamera.transform.right;
+                mirrorTransform.Rotate(cameraRight, mouseY, Space.World);
+            }
         }
-        
-        if (mouseY != 0f)
+        else
         {
-            mirrorTransform.Rotate(Vector3.right, mouseY);
+            if (mouseX != 0f)
+            {
+                mirrorTransform.Rotate(Vector3.up, -mouseX);
+            }
+            
+            if (mouseY != 0f)
+            {
+                mirrorTransform.Rotate(Vector3.right, mouseY);
+            }
         }
     }
     

@@ -13,6 +13,12 @@ public class ObjectGrab : MonoBehaviour
     public KeyCode grabKey = KeyCode.E;
     public KeyCode throwKey = KeyCode.F;
     public LayerMask playerLayer;
+    
+    [Header("Hold Distance Settings")]
+    public float minHoldDistance = 1f;
+    public float maxHoldDistance = 5f;
+    public float holdDistanceScrollSpeed = 0.5f;
+    private float currentHoldDistance = 2f;
 
     private GameObject heldObject;
     private Rigidbody heldRigidbody;
@@ -30,6 +36,8 @@ public class ObjectGrab : MonoBehaviour
         {
             Debug.LogError("Hold Position not assigned on ObjectGrab script!");
         }
+        
+        currentHoldDistance = Mathf.Clamp((minHoldDistance + maxHoldDistance) / 2f, minHoldDistance, maxHoldDistance);
     }
 
     void Update()
@@ -46,11 +54,20 @@ public class ObjectGrab : MonoBehaviour
         {
             ThrowObject();
         }
-
+        
         if (isHolding && heldObject != null)
         {
-            heldRigidbody.linearVelocity = (holdPosition.position - heldObject.transform.position) * 10f;
+            float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+            if (scrollInput != 0)
+            {
+                currentHoldDistance += scrollInput * holdDistanceScrollSpeed;
+                currentHoldDistance = Mathf.Clamp(currentHoldDistance, minHoldDistance, maxHoldDistance);
+                Debug.Log("Distance de maintien ajustée à: " + currentHoldDistance);
+            }
             
+            Vector3 targetPosition = playerCamera.transform.position + playerCamera.transform.forward * currentHoldDistance;
+            
+            heldRigidbody.linearVelocity = (targetPosition - heldObject.transform.position) * 10f;
             heldRigidbody.angularVelocity = Vector3.Lerp(heldRigidbody.angularVelocity, Vector3.zero, Time.deltaTime * 5f);
         }
     }

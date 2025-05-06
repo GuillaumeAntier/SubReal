@@ -49,7 +49,10 @@ public class PlayerInteraction : MonoBehaviour
             if (interactionText != null)
             {
                 interactionText.gameObject.SetActive(true);
-                interactionText.text = "Press E to grab";
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Grabbable"))
+                    interactionText.text = "Press E to grab";
+                else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Button"))
+                    interactionText.text = "Press E to press";
             }
         }
         else
@@ -66,12 +69,6 @@ public class PlayerInteraction : MonoBehaviour
     
     void InteractWithObject(GameObject interactable)
     {
-        // Implémentez ici la logique d'interaction avec l'objet
         Debug.Log($"Interacting with {interactable.name}");
-        
-        // Exemple: vous pourriez appeler une méthode sur un composant de l'objet
-        // IInteractable interactableComponent = interactable.GetComponent<IInteractable>();
-        // if (interactableComponent != null)
-        //     interactableComponent.Interact();
     }
 }

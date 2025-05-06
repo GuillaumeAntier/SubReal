@@ -71,26 +71,9 @@ public class SceneChangeButton : MonoBehaviour
         }
     }
     
-    void ChangeScene()
+    public void ChangeScene()
     {
-        if (!string.IsNullOrEmpty(targetSceneName))
-        {
-            Debug.Log("Changement vers la scène: " + targetSceneName);
-            
-            // Vérifier si la scène existe dans les scènes du build
-            if (SceneUtility.GetBuildIndexByScenePath("Scenes/" + targetSceneName) != -1)
-            {
-                SceneManager.LoadScene(targetSceneName);
-            }
-            else
-            {
-                Debug.LogError("La scène '" + targetSceneName + "' n'existe pas ou n'est pas incluse dans les scènes du build!");
-            }
-        }
-        else
-        {
-            Debug.LogError("Changement de scène impossible: nom de scène non assigné");
-        }
+        SceneTransition.FadeToScene(targetSceneName);
     }
     
     void OnDrawGizmosSelected()
