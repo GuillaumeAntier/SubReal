@@ -17,10 +17,17 @@ public class SceneTransition : MonoBehaviour
     [SerializeField] private Vector2 sceneNameStartPosition = new Vector2(0, -50);
     [SerializeField] private Vector2 sceneNameEndPosition = new Vector2(0, 50);
     [SerializeField] private AnimationCurve sceneNameMoveCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource backgroundAudioSource; 
+    [SerializeField] private AudioSource transitionAudioSource; 
+    [SerializeField] private AudioClip sceneTransitionSound;
+    [SerializeField] private float fadeOutDuration = 1f;
     
     public string objectToHideName;
     private GameObject objectToHide;
     private static SceneTransition instance;
+    private float originalVolume;
     
     private void Awake()
     {
@@ -43,6 +50,19 @@ public class SceneTransition : MonoBehaviour
                 sceneNameText.color = color;
                 sceneNameText.rectTransform.anchoredPosition = sceneNameStartPosition;
             }
+            
+            if (backgroundAudioSource != null)
+            {
+                originalVolume = backgroundAudioSource.volume;
+            }
+            
+            if (transitionAudioSource == null)
+            {
+                transitionAudioSource = gameObject.AddComponent<AudioSource>();
+            }
+            
+            transitionAudioSource.playOnAwake = false;
+            transitionAudioSource.loop = false;
         }
         else
         {
@@ -69,6 +89,14 @@ public class SceneTransition : MonoBehaviour
             objectToHide.SetActive(false);
             Debug.Log("Object hidden");
         }
+
+        if (transitionAudioSource != null && sceneTransitionSound != null)
+        {
+            transitionAudioSource.Stop(); 
+            transitionAudioSource.clip = sceneTransitionSound;
+            transitionAudioSource.volume = 1f; 
+            transitionAudioSource.Play();
+        }
         
         yield return StartCoroutine(FadeIn());
         
@@ -80,9 +108,8 @@ public class SceneTransition : MonoBehaviour
         
         SceneManager.LoadScene(sceneName);
         
-        yield return null; // Attendre une frame pour que la scène soit chargée
+        yield return null;
         
-        // Trouver l'objet à masquer dans la nouvelle scène
         if (!string.IsNullOrEmpty(objectToHideName))
         {
             objectToHide = GameObject.Find(objectToHideName);
@@ -161,11 +188,22 @@ public class SceneTransition : MonoBehaviour
             color.a = t;
             transitionImage.color = color;
             
+            if (backgroundAudioSource != null && backgroundAudioSource.isPlaying)
+            {
+                float fadeProgress = Mathf.Clamp01(elapsedTime / fadeOutDuration);
+                backgroundAudioSource.volume = Mathf.Lerp(originalVolume, 0, fadeProgress);
+            }
+            
             yield return null;
         }
         
         color.a = 1;
         transitionImage.color = color;
+        
+        if (backgroundAudioSource != null)
+        {
+            backgroundAudioSource.volume = 0;
+        }
     }
     
     private IEnumerator FadeOut()
@@ -183,11 +221,26 @@ public class SceneTransition : MonoBehaviour
             color.a = 1 - t;
             transitionImage.color = color;
             
+            if (backgroundAudioSource != null)
+            {
+                backgroundAudioSource.volume = Mathf.Lerp(0, originalVolume, t);
+            }
+            
             yield return null;
         }
         
         color.a = 0;
         transitionImage.color = color;
+        
+        if (backgroundAudioSource != null)
+        {
+            backgroundAudioSource.volume = originalVolume;
+        }
+        
+        if (transitionAudioSource != null)
+        {
+            transitionAudioSource.Stop();
+        }
     }
     
     private void OnEnable()

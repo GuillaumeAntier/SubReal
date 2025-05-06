@@ -21,23 +21,21 @@ MonoBehaviour:
   m_OverrideGlobalSceneList: 1
   m_Scenes:
   - m_enabled: 1
-    m_path: Assets/Scenes/SampleScene.unity
-  - m_enabled: 1
     m_path: Assets/Scenes/Hub.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/Level 1.unity
+    m_path: Assets/Scenes/Level 1 - Drag & Drop.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/Level 2.unity
+    m_path: Assets/Scenes/Level 2 - Portal.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/Level 3.unity
+    m_path: Assets/Scenes/Level 3 - Colors.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/Level 4.unity
+    m_path: Assets/Scenes/Level 4 - Where Am I.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/Level 5.unity
+    m_path: Assets/Scenes/Level 5 - High Security.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/Level 6.unity
+    m_path: Assets/Scenes/Level 6 - Reflexion.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/Level 7.unity
+    m_path: Assets/Scenes/Level 7 - The Last Difficulty.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
     m_Settings: []
