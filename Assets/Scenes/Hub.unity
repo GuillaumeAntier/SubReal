@@ -1455,7 +1455,7 @@ PrefabInstance:
     - target: {fileID: 4528320478315165920, guid: a769b7f0d7516754fb92867e03f5f2ea, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: c474c693de7b6d047bc75e8898631bfc, type: 2}
+      objectReference: {fileID: 2100000, guid: c1c3d1f629cced64484afc9f62149f7d, type: 2}
     - target: {fileID: 5201540175562428722, guid: a769b7f0d7516754fb92867e03f5f2ea, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -7082,7 +7082,11 @@ PrefabInstance:
       objectReference: {fileID: 177656617}
     - target: {fileID: 2199677021735810910, guid: a87bd4fb91d9316489b502c86bf42f6b, type: 3}
       propertyPath: m_Intensity
-      value: 5
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2199677021735810910, guid: a87bd4fb91d9316489b502c86bf42f6b, type: 3}
+      propertyPath: m_ColorTemperature
+      value: 3500
       objectReference: {fileID: 0}
     - target: {fileID: 2583480206353731213, guid: a87bd4fb91d9316489b502c86bf42f6b, type: 3}
       propertyPath: m_Mesh
@@ -7120,6 +7124,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 177656617}
+    - target: {fileID: 7496558291879431259, guid: a87bd4fb91d9316489b502c86bf42f6b, type: 3}
+      propertyPath: m_ColorTemperature
+      value: 3500
+      objectReference: {fileID: 0}
     - target: {fileID: 8491757042364010250, guid: a87bd4fb91d9316489b502c86bf42f6b, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -7416,7 +7424,7 @@ PrefabInstance:
     - target: {fileID: 4528320478315165920, guid: a769b7f0d7516754fb92867e03f5f2ea, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 56152d08b56876645ad8fa31875bb46c, type: 2}
+      objectReference: {fileID: 2100000, guid: ca7769ac27b10ae4cb60489e864fb77c, type: 2}
     - target: {fileID: 5201540175562428722, guid: a769b7f0d7516754fb92867e03f5f2ea, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -8513,7 +8521,11 @@ PrefabInstance:
       objectReference: {fileID: 294755582}
     - target: {fileID: 2199677021735810910, guid: a87bd4fb91d9316489b502c86bf42f6b, type: 3}
       propertyPath: m_Intensity
-      value: 5
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2199677021735810910, guid: a87bd4fb91d9316489b502c86bf42f6b, type: 3}
+      propertyPath: m_ColorTemperature
+      value: 3500
       objectReference: {fileID: 0}
     - target: {fileID: 2583480206353731213, guid: a87bd4fb91d9316489b502c86bf42f6b, type: 3}
       propertyPath: m_Mesh
@@ -8551,6 +8563,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 294755582}
+    - target: {fileID: 7496558291879431259, guid: a87bd4fb91d9316489b502c86bf42f6b, type: 3}
+      propertyPath: m_ColorTemperature
+      value: 3500
+      objectReference: {fileID: 0}
     - target: {fileID: 8491757042364010250, guid: a87bd4fb91d9316489b502c86bf42f6b, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -8605,6 +8621,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1772685986}
+    - target: {fileID: 4528320478315165920, guid: a769b7f0d7516754fb92867e03f5f2ea, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e7d30e96d238a5345966b1aff14ded9a, type: 2}
     - target: {fileID: 5201540175562428722, guid: a769b7f0d7516754fb92867e03f5f2ea, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -8956,7 +8976,11 @@ PrefabInstance:
       objectReference: {fileID: 1303245097}
     - target: {fileID: 2199677021735810910, guid: a87bd4fb91d9316489b502c86bf42f6b, type: 3}
       propertyPath: m_Intensity
-      value: 5
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2199677021735810910, guid: a87bd4fb91d9316489b502c86bf42f6b, type: 3}
+      propertyPath: m_ColorTemperature
+      value: 3500
       objectReference: {fileID: 0}
     - target: {fileID: 2583480206353731213, guid: a87bd4fb91d9316489b502c86bf42f6b, type: 3}
       propertyPath: m_Mesh
@@ -8994,6 +9018,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1303245097}
+    - target: {fileID: 7496558291879431259, guid: a87bd4fb91d9316489b502c86bf42f6b, type: 3}
+      propertyPath: m_ColorTemperature
+      value: 3500
+      objectReference: {fileID: 0}
     - target: {fileID: 8491757042364010250, guid: a87bd4fb91d9316489b502c86bf42f6b, type: 3}
       propertyPath: m_Mesh
       value: 
