@@ -6733,7 +6733,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6420023968558517433, guid: e0b0edbca062d46469c404342cd797d7, type: 3}
       propertyPath: targetSceneName
-      value: Level 3
+      value: Level 3 - Colors
       objectReference: {fileID: 0}
     - target: {fileID: 8048319980534597993, guid: e0b0edbca062d46469c404342cd797d7, type: 3}
       propertyPath: m_LocalScale.x
@@ -7610,7 +7610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6420023968558517433, guid: e0b0edbca062d46469c404342cd797d7, type: 3}
       propertyPath: targetSceneName
-      value: Level 4
+      value: Level 4 - Where Am I
       objectReference: {fileID: 0}
     - target: {fileID: 8048319980534597993, guid: e0b0edbca062d46469c404342cd797d7, type: 3}
       propertyPath: m_LocalScale.x
@@ -9304,7 +9304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6420023968558517433, guid: e0b0edbca062d46469c404342cd797d7, type: 3}
       propertyPath: targetSceneName
-      value: Level 7
+      value: Level 7 - The Last Difficulty
       objectReference: {fileID: 0}
     - target: {fileID: 8048319980534597993, guid: e0b0edbca062d46469c404342cd797d7, type: 3}
       propertyPath: m_LocalScale.z
@@ -13595,7 +13595,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6420023968558517433, guid: e0b0edbca062d46469c404342cd797d7, type: 3}
       propertyPath: targetSceneName
-      value: Level 5
+      value: Level 5 - High Security
       objectReference: {fileID: 0}
     - target: {fileID: 8048319980534597993, guid: e0b0edbca062d46469c404342cd797d7, type: 3}
       propertyPath: m_LocalScale.x
@@ -14135,7 +14135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6420023968558517433, guid: e0b0edbca062d46469c404342cd797d7, type: 3}
       propertyPath: targetSceneName
-      value: Level 6
+      value: Level 6 - Reflexion
       objectReference: {fileID: 0}
     - target: {fileID: 8048319980534597993, guid: e0b0edbca062d46469c404342cd797d7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -20912,7 +20912,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6420023968558517433, guid: e0b0edbca062d46469c404342cd797d7, type: 3}
       propertyPath: targetSceneName
-      value: Level 2
+      value: Level 2 - Portal
       objectReference: {fileID: 0}
     - target: {fileID: 8048319980534597993, guid: e0b0edbca062d46469c404342cd797d7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23249,7 +23249,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6420023968558517433, guid: e0b0edbca062d46469c404342cd797d7, type: 3}
       propertyPath: targetSceneName
-      value: Level 1
+      value: Level 1 - Drag & Drop
       objectReference: {fileID: 0}
     - target: {fileID: 8048319980534597993, guid: e0b0edbca062d46469c404342cd797d7, type: 3}
       propertyPath: m_LocalScale.z
