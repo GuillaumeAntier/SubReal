@@ -8,7 +8,11 @@ public class PressurePlate : MonoBehaviour
     public Door door;
     public string plateColorName = "Bleu";
     public bool requireColorMatch = true;
-
+    
+    [Header("Audio")]
+    [SerializeField] private AudioSource plateAudioSource;
+    [SerializeField] private AudioClip plateActivateSound;
+    
     private Vector3 startPos;
     private Vector3 targetPos;
     private bool isPressed = false;
@@ -18,6 +22,17 @@ public class PressurePlate : MonoBehaviour
     {
         startPos = transform.position;
         targetPos = startPos;
+        
+        if (plateAudioSource == null)
+        {
+            plateAudioSource = GetComponent<AudioSource>();
+            if (plateAudioSource == null)
+            {
+                plateAudioSource = gameObject.AddComponent<AudioSource>();
+                plateAudioSource.playOnAwake = false;
+                plateAudioSource.spatialBlend = 1.0f; 
+            }
+        }
     }
 
     void Update()
@@ -62,6 +77,12 @@ public class PressurePlate : MonoBehaviour
         if (isValid)
         {
             validObjectsOnPlate.Add(collidingObject);
+            
+            if (validObjectsOnPlate.Count == 1)
+            {
+                PlayActivationSound();
+            }
+            
             isPressed = true;
             door.OpenDoor();
         }
@@ -80,6 +101,15 @@ public class PressurePlate : MonoBehaviour
                 isPressed = false;
                 door.CloseDoor();
             }
+        }
+    }
+    
+    private void PlayActivationSound()
+    {
+        if (plateAudioSource != null && plateActivateSound != null)
+        {
+            plateAudioSource.clip = plateActivateSound;
+            plateAudioSource.Play();
         }
     }
 }

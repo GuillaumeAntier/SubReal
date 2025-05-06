@@ -20,6 +20,12 @@ public class ObjectGrab : MonoBehaviour
     public float holdDistanceScrollSpeed = 0.5f;
     private float currentHoldDistance = 2f;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource grabAudioSource;
+    [SerializeField] private AudioClip grabSound;
+    [SerializeField] private AudioClip dropSound;
+    [SerializeField] private AudioClip throwSound;
+    
     private GameObject heldObject;
     private Rigidbody heldRigidbody;
     private bool isHolding = false;
@@ -38,6 +44,17 @@ public class ObjectGrab : MonoBehaviour
         }
         
         currentHoldDistance = Mathf.Clamp((minHoldDistance + maxHoldDistance) / 2f, minHoldDistance, maxHoldDistance);
+        
+        if (grabAudioSource == null)
+        {
+            grabAudioSource = GetComponent<AudioSource>();
+            if (grabAudioSource == null)
+            {
+                grabAudioSource = gameObject.AddComponent<AudioSource>();
+                grabAudioSource.playOnAwake = false;
+                grabAudioSource.spatialBlend = 0f; 
+            }
+        }
     }
 
     void Update()
@@ -93,6 +110,8 @@ public class ObjectGrab : MonoBehaviour
                 heldRigidbody.angularDamping = 10;
                 heldRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
                 
+                PlaySound(grabSound);
+                
                 isHolding = true;
                 Debug.Log("Grabbed object: " + heldObject.name);
             }
@@ -112,6 +131,8 @@ public class ObjectGrab : MonoBehaviour
             heldRigidbody.linearDamping = 1;
             heldRigidbody.angularDamping = 0.05f;
             
+            PlaySound(dropSound);
+            
             Debug.Log("Dropped object: " + heldObject.name);
             
             heldObject = null;
@@ -124,7 +145,6 @@ public class ObjectGrab : MonoBehaviour
     {
         if (heldObject != null)
         {
-
             heldObject.layer = originalLayer;
             heldRigidbody.useGravity = true;
             heldRigidbody.linearDamping = 1;
@@ -132,9 +152,20 @@ public class ObjectGrab : MonoBehaviour
             
             heldRigidbody.AddForce(playerCamera.transform.forward * throwForce, ForceMode.Impulse);
             
+            PlaySound(throwSound);
+            
             heldObject = null;
             heldRigidbody = null;
             isHolding = false;
+        }
+    }
+    
+    private void PlaySound(AudioClip sound)
+    {
+        if (grabAudioSource != null && sound != null)
+        {
+            grabAudioSource.clip = sound;
+            grabAudioSource.Play();
         }
     }
 

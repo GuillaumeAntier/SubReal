@@ -10,6 +10,10 @@ public class SceneChangeButton : MonoBehaviour
     public Material normalMaterial; 
     public Material highlightMaterial; 
     
+    [Header("Audio")]
+    [SerializeField] private AudioSource buttonAudioSource;
+    [SerializeField] private AudioClip buttonPressSound;
+    
     private Camera playerCamera;
     private Renderer buttonRenderer;
     private bool playerInRange = false;
@@ -22,6 +26,17 @@ public class SceneChangeButton : MonoBehaviour
         if (string.IsNullOrEmpty(targetSceneName))
         {
             Debug.LogError("Nom de scène cible non assigné!");
+        }
+        
+        if (buttonAudioSource == null)
+        {
+            buttonAudioSource = GetComponent<AudioSource>();
+            if (buttonAudioSource == null)
+            {
+                buttonAudioSource = gameObject.AddComponent<AudioSource>();
+                buttonAudioSource.playOnAwake = false;
+                buttonAudioSource.spatialBlend = 1.0f; // Son 3D
+            }
         }
     }
     
@@ -73,7 +88,18 @@ public class SceneChangeButton : MonoBehaviour
     
     public void ChangeScene()
     {
+        PlayButtonSound();
+        
         SceneTransition.FadeToScene(targetSceneName);
+    }
+    
+    private void PlayButtonSound()
+    {
+        if (buttonAudioSource != null && buttonPressSound != null)
+        {
+            buttonAudioSource.clip = buttonPressSound;
+            buttonAudioSource.Play();
+        }
     }
     
     void OnDrawGizmosSelected()

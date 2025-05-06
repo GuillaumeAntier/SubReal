@@ -14,9 +14,26 @@ public class Teleporter : MonoBehaviour
     public bool teleportPlayer = true;
     public LayerMask teleportableLayers; 
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource teleportAudioSource;
+    [SerializeField] private AudioClip teleportStartSound;
+    
     private bool canTeleport = true; 
     private HashSet<GameObject> objectsOnPlate = new HashSet<GameObject>(); 
 
+    private void Start()
+    {
+        if (teleportAudioSource == null)
+        {
+            teleportAudioSource = GetComponent<AudioSource>();
+            if (teleportAudioSource == null)
+            {
+                teleportAudioSource = gameObject.AddComponent<AudioSource>();
+                teleportAudioSource.playOnAwake = false;
+                teleportAudioSource.spatialBlend = 1.0f; 
+            }
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -45,6 +62,8 @@ public class Teleporter : MonoBehaviour
 
     private IEnumerator TeleportObject(GameObject obj, bool isPlayer)
     {
+        PlayTeleportSound();
+        
         if (teleportDelay > 0)
             yield return new WaitForSeconds(teleportDelay);
 
@@ -108,8 +127,18 @@ public class Teleporter : MonoBehaviour
         {
             Instantiate(teleportEffect, obj.transform.position, Quaternion.identity);
         }
+    
 
         yield return new WaitForSeconds(0.5f);
         canTeleport = true;
+    }
+    
+    private void PlayTeleportSound()
+    {
+        if (teleportAudioSource != null && teleportStartSound != null)
+        {
+            teleportAudioSource.clip = teleportStartSound;
+            teleportAudioSource.Play();
+        }
     }
 }
