@@ -23,9 +23,9 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/Main Menu.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/Hub.unity
-  - m_enabled: 1
     m_path: Assets/Scenes/Credits.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/Hub.unity
   - m_enabled: 1
     m_path: Assets/Scenes/Level 1 - Drag & Drop.unity
   - m_enabled: 1
